@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { v4 as uuidv4 } from 'uuid'
-import type { Project, Task, TaskStatus, FilterState } from '../types'
+import type { Project, Task, FilterState } from '../types'
 import { loadProjects, saveProjects, loadTheme, saveTheme } from '../utils/storage'
 
 interface AppState {
@@ -19,19 +19,12 @@ interface AppState {
   updateTask: (projectId: string, taskId: string, updates: Partial<Omit<Task, 'id' | 'createdAt'>>) => void
   deleteTask: (projectId: string, taskId: string) => void
   reorderTasks: (projectId: string, taskIds: string[]) => void
-  toggleTaskStatus: (projectId: string, taskId: string) => void
 
   importProjects: (projects: Project[]) => void
   clearAll: () => void
-
-  getFilteredProjects: () => Project[]
-  getProject: (id: string) => Project | undefined
-  getAllTags: () => string[]
 }
 
-const taskStatuses: TaskStatus[] = ['todo', 'in-progress', 'done']
-
-export const useStore = create<AppState>((set, get) => ({
+export const useStore = create<AppState>((set) => ({
   projects: loadProjects(),
   theme: loadTheme(),
   filters: {
@@ -137,16 +130,6 @@ export const useStore = create<AppState>((set, get) => ({
     return { projects }
   }),
 
-  toggleTaskStatus: (projectId, taskId) => {
-    const state = get()
-    const project = state.projects.find((p) => p.id === projectId)
-    const task = project?.tasks.find((t) => t.id === taskId)
-    if (!task) return
-    const currentIndex = taskStatuses.indexOf(task.status)
-    const nextStatus = taskStatuses[(currentIndex + 1) % taskStatuses.length]
-    state.updateTask(projectId, taskId, { status: nextStatus })
-  },
-
   importProjects: (projects) => set((s) => {
     const merged = [...s.projects, ...projects]
     saveProjects(merged)
@@ -157,29 +140,26 @@ export const useStore = create<AppState>((set, get) => ({
     saveProjects([])
     set({ projects: [] })
   },
-
-  getFilteredProjects: () => {
-    const { projects, filters } = get()
-    return projects.filter((p) => {
-      if (filters.search) {
-        const q = filters.search.toLowerCase()
-        const inTitle = p.title.toLowerCase().includes(q)
-        const inDesc = p.description.toLowerCase().includes(q)
-        const inTasks = p.tasks.some((t) => t.title.toLowerCase().includes(q))
-        if (!inTitle && !inDesc && !inTasks) return false
-      }
-      if (filters.status !== 'all' && p.status !== filters.status) return false
-      if (filters.priority !== 'all' && p.priority !== filters.priority) return false
-      if (filters.tags.length > 0 && !filters.tags.some((t) => p.tags.includes(t))) return false
-      return true
-    })
-  },
-
-  getProject: (id) => get().projects.find((p) => p.id === id),
-
-  getAllTags: () => {
-    const tags = new Set<string>()
-    get().projects.forEach((p) => p.tags.forEach((t) => tags.add(t)))
-    return Array.from(tags).sort()
-  },
 }))
+
+export function filterProjects(projects: Project[], filters: FilterState): Project[] {
+  return projects.filter((p) => {
+    if (filters.search) {
+      const q = filters.search.toLowerCase()
+      const inTitle = p.title.toLowerCase().includes(q)
+      const inDesc = p.description.toLowerCase().includes(q)
+      const inTasks = p.tasks.some((t) => t.title.toLowerCase().includes(q))
+      if (!inTitle && !inDesc && !inTasks) return false
+    }
+    if (filters.status !== 'all' && p.status !== filters.status) return false
+    if (filters.priority !== 'all' && p.priority !== filters.priority) return false
+    if (filters.tags.length > 0 && !filters.tags.some((t) => p.tags.includes(t))) return false
+    return true
+  })
+}
+
+export function getAllTags(projects: Project[]): string[] {
+  const tags = new Set<string>()
+  projects.forEach((p) => p.tags.forEach((t) => tags.add(t)))
+  return Array.from(tags).sort()
+}

@@ -29,10 +29,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       to={`/project/${project.id}`}
-      className="block p-4 rounded-2xl glass glass-hover transition-all duration-300 group"
+      className="block p-4 rounded-2xl bg-zinc-900 border border-zinc-800 hover:border-zinc-700 transition-all group"
     >
       <div className="flex items-start justify-between mb-2.5">
-        <h3 className="font-semibold text-white group-hover:text-purple-400 transition-colors line-clamp-1 text-[15px]">
+        <h3 className="font-semibold text-white group-hover:text-violet-400 transition-colors line-clamp-1 text-[15px]">
           {project.title}
         </h3>
         <Badge color={status.color}>
@@ -48,28 +48,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
       )}
 
       <div className="flex flex-wrap gap-1.5 mb-3">
-        <Badge color={priorityColors[project.priority]}>
-          {project.priority}
-        </Badge>
+        <Badge color={priorityColors[project.priority]}>{project.priority}</Badge>
         {project.tags.slice(0, 3).map((tag) => (
           <Badge key={tag}>{tag}</Badge>
         ))}
-        {project.tags.length > 3 && (
-          <Badge>+{project.tags.length - 3}</Badge>
-        )}
+        {project.tags.length > 3 && <Badge>+{project.tags.length - 3}</Badge>}
       </div>
 
       {totalTasks > 0 && (
         <div className="flex items-center gap-2.5">
-          <div className="flex-1 h-1 rounded-full bg-white/5 overflow-hidden">
+          <div className="flex-1 h-1 rounded-full bg-zinc-800 overflow-hidden">
             <div
-              className="h-full rounded-full bg-gradient-to-r from-purple-500 to-purple-400 transition-all duration-500"
+              className="h-full rounded-full bg-violet-500 transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <span className="text-[10px] text-zinc-500 font-medium tabular-nums">
-            {doneTasks}/{totalTasks}
-          </span>
+          <span className="text-[10px] text-zinc-500 font-medium">{doneTasks}/{totalTasks}</span>
         </div>
       )}
 

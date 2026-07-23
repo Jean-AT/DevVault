@@ -23,11 +23,9 @@ export function ProjectForm({ project, onSave, onClose }: ProjectFormProps) {
   const [showPreview, setShowPreview] = useState(false)
 
   useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
-    }
-    document.addEventListener('keydown', handleEscape)
-    return () => document.removeEventListener('keydown', handleEscape)
+    const h = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose() }
+    document.addEventListener('keydown', h)
+    return () => document.removeEventListener('keydown', h)
   }, [onClose])
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -37,104 +35,49 @@ export function ProjectForm({ project, onSave, onClose }: ProjectFormProps) {
   }
 
   const addTag = () => {
-    const tag = tagInput.trim().toLowerCase()
-    if (tag && !tags.includes(tag)) {
-      setTags([...tags, tag])
-      setTagInput('')
-    }
+    const t = tagInput.trim().toLowerCase()
+    if (t && !tags.includes(t)) { setTags([...tags, t]); setTagInput('') }
   }
 
-  const removeTag = (tag: string) => setTags(tags.filter((t) => t !== tag))
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto pr-1 scrollbar-thin">
-      <Input
-        label="Project Title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
-        placeholder="My awesome project idea"
-        autoFocus
-        required
-      />
+    <form onSubmit={handleSubmit} className="space-y-4 max-h-[70vh] overflow-y-auto">
+      <Input label="Project Title" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="My awesome project idea" autoFocus required />
 
       <div>
         <div className="flex items-center justify-between mb-1.5">
           <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Description</label>
-          <button
-            type="button"
-            onClick={() => setShowPreview(!showPreview)}
-            className="text-[11px] text-purple-400 hover:text-purple-300 transition-colors cursor-pointer"
-          >
+          <button type="button" onClick={() => setShowPreview(!showPreview)} className="text-[11px] text-violet-400 hover:text-violet-300 cursor-pointer">
             {showPreview ? 'Edit' : 'Preview'}
           </button>
         </div>
         {showPreview ? (
-          <div className="w-full rounded-xl glass px-4 py-3 min-h-[120px] prose prose-invert prose-sm max-w-none">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {description || '*No description yet...*'}
-            </ReactMarkdown>
+          <div className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 min-h-[120px] prose prose-invert prose-sm max-w-none">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{description || '*No description yet...*'}</ReactMarkdown>
           </div>
         ) : (
-          <Textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            placeholder="Describe your project idea (Markdown supported)"
-            className="min-h-[120px]"
-          />
+          <Textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Describe your project (Markdown supported)" className="min-h-[120px]" />
         )}
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <Select
-          label="Status"
-          value={status}
-          onChange={(e) => setStatus(e.target.value as ProjectStatus)}
-          options={[
-            { value: 'backlog', label: 'Backlog' },
-            { value: 'in-progress', label: 'In Progress' },
-            { value: 'done', label: 'Done' },
-          ]}
-        />
-        <Select
-          label="Priority"
-          value={priority}
-          onChange={(e) => setPriority(e.target.value as Priority)}
-          options={[
-            { value: 'low', label: 'Low' },
-            { value: 'medium', label: 'Medium' },
-            { value: 'high', label: 'High' },
-          ]}
-        />
+        <Select label="Status" value={status} onChange={(e) => setStatus(e.target.value as ProjectStatus)} options={[{ value: 'backlog', label: 'Backlog' }, { value: 'in-progress', label: 'In Progress' }, { value: 'done', label: 'Done' }]} />
+        <Select label="Priority" value={priority} onChange={(e) => setPriority(e.target.value as Priority)} options={[{ value: 'low', label: 'Low' }, { value: 'medium', label: 'Medium' }, { value: 'high', label: 'High' }]} />
       </div>
 
       <div>
         <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider block mb-1.5">Tags</label>
         <div className="flex gap-2 mb-2">
-          <input
-            type="text"
-            value={tagInput}
-            onChange={(e) => setTagInput(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addTag() } }}
-            placeholder="Add a tag"
-            className="flex-1 rounded-xl glass-input px-3 py-2 text-sm transition-all"
-          />
-          <Button type="button" size="sm" onClick={addTag}>
-            <Plus size={14} />
-          </Button>
+          <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addTag() } }} placeholder="Add a tag" className="flex-1 rounded-xl bg-zinc-900 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-violet-500" />
+          <Button type="button" size="sm" onClick={addTag}><Plus size={14} /></Button>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (
-            <Badge key={tag}>
-              {tag}
-              <button type="button" onClick={() => removeTag(tag)} className="ml-1 hover:text-red-400 transition-colors cursor-pointer">
-                <X size={10} />
-              </button>
-            </Badge>
+            <Badge key={tag}>{tag}<button type="button" onClick={() => setTags(tags.filter((t) => t !== tag))} className="ml-1 hover:text-red-400 cursor-pointer"><X size={10} /></button></Badge>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-end gap-2 pt-3 border-t border-white/5">
+      <div className="flex justify-end gap-2 pt-3 border-t border-zinc-800">
         <Button type="button" variant="ghost" onClick={onClose}>Cancel</Button>
         <Button type="submit">{project ? 'Update' : 'Create'} Project</Button>
       </div>
