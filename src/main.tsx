@@ -8,7 +8,8 @@ function Root() {
   const theme = useStore((s) => s.theme)
 
   useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark')
+    document.documentElement.classList.remove('light', 'dark')
+    document.documentElement.classList.add(theme)
   }, [theme])
 
   return <App />

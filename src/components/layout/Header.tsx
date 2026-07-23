@@ -15,11 +15,13 @@ export function Header() {
   ]
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border dark:border-border-dark bg-surface/80 dark:bg-surface-dark/80 backdrop-blur-sm">
+    <header className="sticky top-0 z-40 glass-strong border-b border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14">
-          <Link to="/" className="flex items-center gap-2 text-primary font-bold text-lg">
-            <Vault size={24} />
+          <Link to="/" className="flex items-center gap-2.5 text-purple-400 font-bold text-lg">
+            <div className="w-8 h-8 rounded-xl bg-purple-500/20 flex items-center justify-center">
+              <Vault size={18} />
+            </div>
             <span>DevVault</span>
           </Link>
 
@@ -31,13 +33,13 @@ export function Header() {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all duration-200 ${
                     active
-                      ? 'bg-primary-light text-primary dark:bg-primary/20'
-                      : 'text-text-secondary dark:text-text-dark-secondary hover:bg-surface-hover dark:hover:bg-surface-dark-hover'
+                      ? 'bg-purple-500/15 text-purple-400'
+                      : 'text-zinc-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <Icon size={16} />
+                  <Icon size={15} />
                   {link.label}
                 </Link>
               )
@@ -47,7 +49,7 @@ export function Header() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-              className="p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-dark-hover text-text-secondary dark:text-text-dark-secondary cursor-pointer"
+              className="p-2 rounded-xl hover:bg-white/5 text-zinc-400 hover:text-white transition-all cursor-pointer"
               title="Toggle theme"
             >
               {theme === 'dark' ? '☀️' : '🌙'}
@@ -55,16 +57,16 @@ export function Header() {
 
             <button
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="sm:hidden p-2 rounded-lg hover:bg-surface-hover dark:hover:bg-surface-dark-hover text-text-secondary dark:text-text-dark-secondary cursor-pointer"
+              className="sm:hidden p-2 rounded-xl hover:bg-white/5 text-zinc-400 hover:text-white transition-all cursor-pointer"
             >
-              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
             </button>
           </div>
         </div>
       </div>
 
       {mobileOpen && (
-        <div className="sm:hidden border-t border-border dark:border-border-dark bg-surface dark:bg-surface-dark">
+        <div className="sm:hidden border-t border-white/5 glass-strong">
           <nav className="px-4 py-2 flex flex-col gap-1">
             {links.map((link) => {
               const Icon = link.icon
@@ -74,10 +76,10 @@ export function Header() {
                   key={link.to}
                   to={link.to}
                   onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
                     active
-                      ? 'bg-primary-light text-primary dark:bg-primary/20'
-                      : 'text-text-secondary dark:text-text-dark-secondary hover:bg-surface-hover dark:hover:bg-surface-dark-hover'
+                      ? 'bg-purple-500/15 text-purple-400'
+                      : 'text-zinc-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   <Icon size={16} />

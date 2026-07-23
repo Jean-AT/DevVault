@@ -29,52 +29,52 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link
       to={`/project/${project.id}`}
-      className="block p-4 rounded-xl border border-border dark:border-border-dark bg-surface dark:bg-surface-dark hover:shadow-lg hover:border-primary/30 dark:hover:border-primary/30 transition-all group"
+      className="block p-4 rounded-2xl glass glass-hover transition-all duration-300 group"
     >
-      <div className="flex items-start justify-between mb-2">
-        <h3 className="font-semibold text-text dark:text-text-dark group-hover:text-primary transition-colors line-clamp-1">
+      <div className="flex items-start justify-between mb-2.5">
+        <h3 className="font-semibold text-white group-hover:text-purple-400 transition-colors line-clamp-1 text-[15px]">
           {project.title}
         </h3>
-        <Badge color={status.color} size="sm">
-          <StatusIcon size={12} className="mr-1" />
+        <Badge color={status.color}>
+          <StatusIcon size={10} className="mr-1" />
           {status.label}
         </Badge>
       </div>
 
       {project.description && (
-        <p className="text-sm text-text-secondary dark:text-text-dark-secondary line-clamp-2 mb-3">
+        <p className="text-xs text-zinc-400 line-clamp-2 mb-3 leading-relaxed">
           {project.description.replace(/[#*`]/g, '').slice(0, 120)}
         </p>
       )}
 
-      <div className="flex flex-wrap gap-1 mb-3">
-        <Badge color={priorityColors[project.priority]} size="sm">
+      <div className="flex flex-wrap gap-1.5 mb-3">
+        <Badge color={priorityColors[project.priority]}>
           {project.priority}
         </Badge>
         {project.tags.slice(0, 3).map((tag) => (
-          <Badge key={tag} size="sm">{tag}</Badge>
+          <Badge key={tag}>{tag}</Badge>
         ))}
         {project.tags.length > 3 && (
-          <Badge size="sm">+{project.tags.length - 3}</Badge>
+          <Badge>+{project.tags.length - 3}</Badge>
         )}
       </div>
 
       {totalTasks > 0 && (
-        <div className="flex items-center gap-2">
-          <div className="flex-1 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+        <div className="flex items-center gap-2.5">
+          <div className="flex-1 h-1 rounded-full bg-white/5 overflow-hidden">
             <div
-              className="h-full rounded-full bg-primary transition-all"
+              className="h-full rounded-full bg-gradient-to-r from-purple-500 to-purple-400 transition-all duration-500"
               style={{ width: `${progress}%` }}
             />
           </div>
-          <span className="text-xs text-text-secondary dark:text-text-dark-secondary whitespace-nowrap">
+          <span className="text-[10px] text-zinc-500 font-medium tabular-nums">
             {doneTasks}/{totalTasks}
           </span>
         </div>
       )}
 
-      <div className="flex items-center gap-1 mt-3 text-xs text-text-secondary dark:text-text-dark-secondary">
-        <Calendar size={12} />
+      <div className="flex items-center gap-1 mt-3 text-[10px] text-zinc-500">
+        <Calendar size={10} />
         {new Date(project.updatedAt).toLocaleDateString()}
       </div>
     </Link>

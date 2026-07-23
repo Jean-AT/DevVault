@@ -21,13 +21,13 @@ export function Dashboard() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-text dark:text-text-dark">Projects</h1>
-          <p className="text-sm text-text-secondary dark:text-text-dark-secondary">
+          <h1 className="text-2xl font-bold text-white tracking-tight">Projects</h1>
+          <p className="text-xs text-zinc-500 mt-0.5">
             {projects.length} project{projects.length !== 1 ? 's' : ''}
           </p>
         </div>
         <Button onClick={() => setShowForm(true)}>
-          <Plus size={16} />
+          <Plus size={15} />
           New Project
         </Button>
       </div>
@@ -41,14 +41,16 @@ export function Dashboard() {
           ))}
         </div>
       ) : (
-        <div className="flex flex-col items-center justify-center py-20 text-center">
-          <FolderOpen size={48} className="text-text-secondary dark:text-text-dark-secondary mb-4" />
-          <h3 className="text-lg font-medium text-text dark:text-text-dark mb-2">No projects yet</h3>
-          <p className="text-sm text-text-secondary dark:text-text-dark-secondary mb-4 max-w-md">
-            Start by adding your first project idea. Break it down into tasks and track your progress.
+        <div className="flex flex-col items-center justify-center py-24">
+          <div className="w-16 h-16 rounded-2xl glass flex items-center justify-center mb-5">
+            <FolderOpen size={28} className="text-zinc-600" />
+          </div>
+          <h3 className="text-lg font-medium text-white mb-1.5">No projects yet</h3>
+          <p className="text-sm text-zinc-500 mb-5 text-center max-w-sm">
+            Add your first project idea. Break it into tasks and track your progress.
           </p>
           <Button onClick={() => setShowForm(true)}>
-            <Plus size={16} />
+            <Plus size={15} />
             Create your first project
           </Button>
         </div>

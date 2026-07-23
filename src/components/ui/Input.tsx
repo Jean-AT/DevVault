@@ -5,12 +5,10 @@ interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 export function Input({ label, className = '', ...props }: InputProps) {
-  const base = 'w-full rounded-lg border border-border dark:border-border-dark bg-surface dark:bg-surface-dark px-3 py-2 text-sm text-text dark:text-text-dark placeholder:text-text-secondary dark:placeholder:text-text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors'
-
   return (
-    <div className="flex flex-col gap-1">
-      {label && <label className="text-sm font-medium text-text dark:text-text-dark">{label}</label>}
-      <input className={`${base} ${className}`} {...props} />
+    <div className="flex flex-col gap-1.5">
+      {label && <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">{label}</label>}
+      <input className={`w-full rounded-xl glass-input px-3 py-2.5 text-sm transition-all duration-200 ${className}`} {...props} />
     </div>
   )
 }
@@ -20,12 +18,10 @@ interface TextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement
 }
 
 export function Textarea({ label, className = '', ...props }: TextareaProps) {
-  const base = 'w-full rounded-lg border border-border dark:border-border-dark bg-surface dark:bg-surface-dark px-3 py-2 text-sm text-text dark:text-text-dark placeholder:text-text-secondary dark:placeholder:text-text-dark-secondary focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-y min-h-[80px]'
-
   return (
-    <div className="flex flex-col gap-1">
-      {label && <label className="text-sm font-medium text-text dark:text-text-dark">{label}</label>}
-      <textarea className={`${base} ${className}`} {...props} />
+    <div className="flex flex-col gap-1.5">
+      {label && <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">{label}</label>}
+      <textarea className={`w-full rounded-xl glass-input px-3 py-2.5 text-sm min-h-[80px] resize-y transition-all duration-200 ${className}`} {...props} />
     </div>
   )
 }
@@ -36,14 +32,12 @@ interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
 }
 
 export function Select({ label, options, className = '', ...props }: SelectProps) {
-  const base = 'w-full rounded-lg border border-border dark:border-border-dark bg-surface dark:bg-surface-dark px-3 py-2 text-sm text-text dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors cursor-pointer'
-
   return (
-    <div className="flex flex-col gap-1">
-      {label && <label className="text-sm font-medium text-text dark:text-text-dark">{label}</label>}
-      <select className={`${base} ${className}`} {...props}>
+    <div className="flex flex-col gap-1.5">
+      {label && <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">{label}</label>}
+      <select className={`w-full rounded-xl glass-input px-3 py-2.5 text-sm transition-all duration-200 cursor-pointer ${className}`} {...props}>
         {options.map((opt) => (
-          <option key={opt.value} value={opt.value}>{opt.label}</option>
+          <option key={opt.value} value={opt.value} className="bg-zinc-900 text-white">{opt.label}</option>
         ))}
       </select>
     </div>

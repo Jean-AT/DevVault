@@ -32,14 +32,15 @@ export function ProjectDetail() {
   const updateTask = useStore((s) => s.updateTask)
   const deleteTask = useStore((s) => s.deleteTask)
   const reorderTasks = useStore((s) => s.reorderTasks)
+
   const [editing, setEditing] = useState(false)
   const [confirmDelete, setConfirmDelete] = useState(false)
 
   if (!project) {
     return (
-      <div className="text-center py-20">
-        <p className="text-text-secondary dark:text-text-dark-secondary">Project not found.</p>
-        <Link to="/" className="text-primary hover:underline mt-2 inline-block">Back to projects</Link>
+      <div className="text-center py-24">
+        <p className="text-zinc-500">Project not found.</p>
+        <Link to="/" className="text-purple-400 hover:text-purple-300 text-sm mt-2 inline-block transition-colors">Back to projects</Link>
       </div>
     )
   }
@@ -57,29 +58,25 @@ export function ProjectDetail() {
     navigate('/')
   }
 
-  const handleAddTask = (taskData: Parameters<typeof addTask>[1]) => {
-    addTask(project.id, taskData)
-  }
-
   return (
     <div className="space-y-6">
-      <Link to="/" className="inline-flex items-center gap-1 text-sm text-text-secondary dark:text-text-dark-secondary hover:text-primary transition-colors">
-        <ArrowLeft size={16} />
+      <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-purple-400 transition-colors">
+        <ArrowLeft size={14} />
         Back to projects
       </Link>
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div className="space-y-2">
           <div className="flex items-center gap-2 flex-wrap">
-            <h1 className="text-2xl font-bold text-text dark:text-text-dark">{project.title}</h1>
+            <h1 className="text-2xl font-bold text-white tracking-tight">{project.title}</h1>
             <Badge color={status.color}>
-              <StatusIcon size={12} className="mr-1" />
+              <StatusIcon size={10} className="mr-1" />
               {status.label}
             </Badge>
             <Badge color={priorityColors[project.priority]}>{project.priority}</Badge>
           </div>
-          <div className="flex items-center gap-1 text-xs text-text-secondary dark:text-text-dark-secondary">
-            <Calendar size={12} />
+          <div className="flex items-center gap-1 text-[11px] text-zinc-500">
+            <Calendar size={11} />
             Created {new Date(project.createdAt).toLocaleDateString()}
             {project.updatedAt !== project.createdAt && (
               <span> · Updated {new Date(project.updatedAt).toLocaleDateString()}</span>
@@ -89,18 +86,18 @@ export function ProjectDetail() {
 
         <div className="flex items-center gap-2">
           <Button variant="outline" size="sm" onClick={() => setEditing(true)}>
-            <Edit size={14} />
+            <Edit size={13} />
             Edit
           </Button>
           <Button variant="danger" size="sm" onClick={() => setConfirmDelete(true)}>
-            <Trash2 size={14} />
+            <Trash2 size={13} />
             Delete
           </Button>
         </div>
       </div>
 
       {project.tags.length > 0 && (
-        <div className="flex flex-wrap gap-1">
+        <div className="flex flex-wrap gap-1.5">
           {project.tags.map((tag) => (
             <Badge key={tag}>{tag}</Badge>
           ))}
@@ -108,17 +105,17 @@ export function ProjectDetail() {
       )}
 
       {project.description && (
-        <div className="p-4 rounded-xl border border-border dark:border-border-dark bg-surface dark:bg-surface-dark">
-          <div className="prose prose-sm dark:prose-invert max-w-none">
+        <div className="p-5 rounded-2xl glass">
+          <div className="prose prose-invert prose-sm max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.description}</ReactMarkdown>
           </div>
         </div>
       )}
 
-      <div className="p-4 rounded-xl border border-border dark:border-border-dark bg-surface dark:bg-surface-dark">
+      <div className="p-5 rounded-2xl glass">
         <TaskList
           tasks={project.tasks}
-          onAdd={handleAddTask}
+          onAdd={(taskData) => addTask(project.id, taskData)}
           onUpdate={(taskId, updates) => updateTask(project.id, taskId, updates)}
           onDelete={(taskId) => deleteTask(project.id, taskId)}
           onReorder={(taskIds) => reorderTasks(project.id, taskIds)}
@@ -130,12 +127,14 @@ export function ProjectDetail() {
       </Modal>
 
       <Modal isOpen={confirmDelete} onClose={() => setConfirmDelete(false)} title="Delete Project">
-        <p className="text-sm text-text-secondary dark:text-text-dark-secondary mb-4">
-          Are you sure you want to delete <strong>{project.title}</strong>? This action cannot be undone.
-        </p>
-        <div className="flex justify-end gap-2">
-          <Button variant="ghost" onClick={() => setConfirmDelete(false)}>Cancel</Button>
-          <Button variant="danger" onClick={handleDelete}>Delete</Button>
+        <div className="space-y-4">
+          <p className="text-sm text-zinc-400">
+            Are you sure you want to delete <strong className="text-white">{project.title}</strong>? This cannot be undone.
+          </p>
+          <div className="flex justify-end gap-2">
+            <Button variant="ghost" onClick={() => setConfirmDelete(false)}>Cancel</Button>
+            <Button variant="danger" onClick={handleDelete}>Delete</Button>
+          </div>
         </div>
       </Modal>
     </div>

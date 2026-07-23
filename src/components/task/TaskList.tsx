@@ -50,17 +50,20 @@ export function TaskList({ tasks, onAdd, onUpdate, onDelete, onReorder }: TaskLi
 
   return (
     <div>
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <h3 className="font-semibold text-text dark:text-text-dark">
+          <h3 className="font-semibold text-white text-sm">
             Tasks ({tasks.length})
           </h3>
           {tasks.length > 0 && (
             <div className="flex items-center gap-2">
-              <div className="w-24 h-1.5 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${progress}%` }} />
+              <div className="w-20 h-1 rounded-full bg-white/5 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-purple-500 to-purple-400 transition-all duration-500"
+                  style={{ width: `${progress}%` }}
+                />
               </div>
-              <span className="text-xs text-text-secondary dark:text-text-dark-secondary">
+              <span className="text-[10px] text-zinc-500 font-medium tabular-nums">
                 {doneCount}/{tasks.length}
               </span>
             </div>
@@ -73,13 +76,13 @@ export function TaskList({ tasks, onAdd, onUpdate, onDelete, onReorder }: TaskLi
       </div>
 
       {adding && (
-        <div className="mb-3 p-3 rounded-lg border border-primary/30 bg-primary/5 space-y-2">
+        <div className="mb-3 p-3 rounded-xl glass border border-purple-500/20 space-y-2">
           <input
             type="text"
             value={newTitle}
             onChange={(e) => setNewTitle(e.target.value)}
             placeholder="Task title"
-            className="w-full rounded-lg border border-border dark:border-border-dark bg-surface dark:bg-surface-dark px-3 py-1.5 text-sm text-text dark:text-text-dark placeholder:text-text-secondary focus:outline-none focus:ring-2 focus:ring-primary/50"
+            className="w-full rounded-xl glass-input px-3 py-2 text-sm"
             autoFocus
             onKeyDown={(e) => { if (e.key === 'Enter') handleAdd() }}
           />
@@ -87,11 +90,11 @@ export function TaskList({ tasks, onAdd, onUpdate, onDelete, onReorder }: TaskLi
             <select
               value={newPriority}
               onChange={(e) => setNewPriority(e.target.value as Priority)}
-              className="rounded-lg border border-border dark:border-border-dark bg-surface dark:bg-surface-dark px-2 py-1 text-xs text-text dark:text-text-dark focus:outline-none"
+              className="rounded-xl glass-input px-2 py-1.5 text-xs cursor-pointer"
             >
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
+              <option value="low" className="bg-zinc-900">Low</option>
+              <option value="medium" className="bg-zinc-900">Medium</option>
+              <option value="high" className="bg-zinc-900">High</option>
             </select>
             <Button size="sm" onClick={handleAdd}>Add</Button>
             <Button size="sm" variant="ghost" onClick={() => { setAdding(false); setNewTitle('') }}>Cancel</Button>
@@ -99,7 +102,7 @@ export function TaskList({ tasks, onAdd, onUpdate, onDelete, onReorder }: TaskLi
         </div>
       )}
 
-      <div className="space-y-1">
+      <div className="space-y-0.5">
         {sorted.map((task, i) => (
           <TaskItem
             key={task.id}
@@ -116,8 +119,8 @@ export function TaskList({ tasks, onAdd, onUpdate, onDelete, onReorder }: TaskLi
       </div>
 
       {tasks.length === 0 && (
-        <div className="text-center py-8 text-text-secondary dark:text-text-dark-secondary">
-          <p className="text-sm">No tasks yet. Break your project into implementable pieces.</p>
+        <div className="text-center py-12">
+          <p className="text-sm text-zinc-500">No tasks yet. Break your project into pieces.</p>
         </div>
       )}
     </div>

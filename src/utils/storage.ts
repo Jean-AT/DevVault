@@ -5,6 +5,7 @@ const THEME_KEY = 'devvault_theme'
 
 export function loadProjects(): Project[] {
   try {
+    if (typeof window === 'undefined') return []
     const data = localStorage.getItem(STORAGE_KEY)
     return data ? JSON.parse(data) : []
   } catch {
@@ -13,17 +14,24 @@ export function loadProjects(): Project[] {
 }
 
 export function saveProjects(projects: Project[]): void {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(projects))
+  } catch {}
 }
 
 export function loadTheme(): 'light' | 'dark' {
   try {
+    if (typeof window === 'undefined') return 'light'
     const theme = localStorage.getItem(THEME_KEY)
     if (theme === 'dark' || theme === 'light') return theme
-  } catch {}
-  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  } catch {
+    return 'light'
+  }
 }
 
 export function saveTheme(theme: 'light' | 'dark'): void {
-  localStorage.setItem(THEME_KEY, theme)
+  try {
+    localStorage.setItem(THEME_KEY, theme)
+  } catch {}
 }
