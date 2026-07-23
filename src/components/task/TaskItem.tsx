@@ -5,6 +5,7 @@ import { GripVertical, Trash2, ChevronDown, ChevronRight, Circle, Clock, CheckCi
 import type { Task, Priority } from '../../types'
 import { Badge } from '../ui/Badge'
 import { Button } from '../ui/Button'
+import { CustomSelect } from '../ui/CustomSelect'
 
 interface TaskItemProps {
   task: Task
@@ -34,11 +35,12 @@ export function TaskItem({ task, onToggle, onUpdate, onDelete, onMoveUp, onMoveD
       <div className="p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 space-y-2">
         <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} className="w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-gray-100 focus:outline-none focus:border-sky-500/50" autoFocus />
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Task description (Markdown)" className="w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 min-h-[60px] resize-y focus:outline-none focus:border-sky-500/50" />
-        <select value={priority} onChange={(e) => setPriority(e.target.value as Priority)} className="rounded-xl bg-white/5 border border-white/10 px-2 py-1.5 text-xs text-gray-300 cursor-pointer focus:outline-none">
-          <option value="low" className="bg-gray-900">Low</option>
-          <option value="medium" className="bg-gray-900">Medium</option>
-          <option value="high" className="bg-gray-900">High</option>
-        </select>
+        <CustomSelect
+          value={priority}
+          onChange={(v) => setPriority(v as Priority)}
+          options={[{ value: 'low', label: 'Low' }, { value: 'medium', label: 'Medium' }, { value: 'high', label: 'High' }]}
+          className="w-28"
+        />
         <div className="flex gap-2">
           <Button size="sm" onClick={() => { onUpdate({ title, description, priority }); setEditing(false) }}>Save</Button>
           <Button size="sm" variant="ghost" onClick={() => setEditing(false)}>Cancel</Button>

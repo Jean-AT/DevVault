@@ -4,7 +4,8 @@ import remarkGfm from 'remark-gfm'
 import { X, Plus } from 'lucide-react'
 import type { Project, Priority, ProjectStatus } from '../../types'
 import { Button } from '../ui/Button'
-import { Input, Textarea, Select } from '../ui/Input'
+import { Input, Textarea } from '../ui/Input'
+import { CustomSelect } from '../ui/CustomSelect'
 import { Badge } from '../ui/Badge'
 
 interface ProjectFormProps {
@@ -60,8 +61,8 @@ export function ProjectForm({ project, onSave, onClose }: ProjectFormProps) {
       </div>
 
       <div className="grid grid-cols-2 gap-3">
-        <Select label="Status" value={status} onChange={(e) => setStatus(e.target.value as ProjectStatus)} options={[{ value: 'backlog', label: 'Backlog' }, { value: 'in-progress', label: 'In Progress' }, { value: 'done', label: 'Done' }]} />
-        <Select label="Priority" value={priority} onChange={(e) => setPriority(e.target.value as Priority)} options={[{ value: 'low', label: 'Low' }, { value: 'medium', label: 'Medium' }, { value: 'high', label: 'High' }]} />
+        <CustomSelect label="Status" value={status} onChange={(v) => setStatus(v as ProjectStatus)} options={[{ value: 'backlog', label: 'Backlog' }, { value: 'in-progress', label: 'In Progress' }, { value: 'done', label: 'Done' }]} />
+        <CustomSelect label="Priority" value={priority} onChange={(v) => setPriority(v as Priority)} options={[{ value: 'low', label: 'Low' }, { value: 'medium', label: 'Medium' }, { value: 'high', label: 'High' }]} />
       </div>
 
       <div>
