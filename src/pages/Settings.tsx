@@ -25,38 +25,38 @@ export function Settings() {
     <div className="max-w-2xl mx-auto space-y-8">
       <div>
         <h1 className="text-2xl font-bold text-white tracking-tight">Settings</h1>
-        <p className="text-xs text-zinc-500 mt-1">Manage your data.</p>
+        <p className="text-xs text-gray-500 mt-1">Manage your data.</p>
       </div>
 
       <section className="space-y-3">
-        <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">Data</h2>
-        <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800 space-y-4">
+        <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">Data</h2>
+        <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/5 space-y-4">
           <div className="flex items-center justify-between">
-            <div><p className="text-sm font-medium text-white">Export</p><p className="text-xs text-zinc-500">{projects.length} project{projects.length !== 1 ? 's' : ''} as JSON</p></div>
+            <div><p className="text-sm font-medium text-white">Export</p><p className="text-xs text-gray-500">{projects.length} project{projects.length !== 1 ? 's' : ''} as JSON</p></div>
             <Button variant="outline" size="sm" onClick={() => exportData(projects)}><Download size={13} />Export</Button>
           </div>
-          <div className="border-t border-zinc-800" />
+          <div className="border-t border-white/5" />
           <div className="flex items-center justify-between">
-            <div><p className="text-sm font-medium text-white">Import</p><p className="text-xs text-zinc-500">From a DevVault JSON file</p></div>
+            <div><p className="text-sm font-medium text-white">Import</p><p className="text-xs text-gray-500">From a DevVault JSON file</p></div>
             <div>
               <input ref={fileRef} type="file" accept=".json" onChange={handleImport} className="hidden" />
               <Button variant="outline" size="sm" onClick={() => fileRef.current?.click()}><Upload size={13} />Import</Button>
             </div>
           </div>
           {importError && <p className="text-xs text-red-400">{importError}</p>}
-          <div className="border-t border-zinc-800" />
+          <div className="border-t border-white/5" />
           <div className="flex items-center justify-between">
-            <div><p className="text-sm font-medium text-red-400">Clear All</p><p className="text-xs text-zinc-500">Delete everything</p></div>
+            <div><p className="text-sm font-medium text-red-400">Clear All</p><p className="text-xs text-gray-500">Delete everything</p></div>
             <Button variant="danger" size="sm" onClick={() => setConfirmClear(true)}><Trash2 size={13} />Clear</Button>
           </div>
         </div>
       </section>
 
       <section className="space-y-3">
-        <h2 className="text-xs font-semibold text-zinc-400 uppercase tracking-wider">About</h2>
-        <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
+        <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wider">About</h2>
+        <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/5">
           <p className="text-sm font-medium text-white">DevVault v0.1.0</p>
-          <p className="text-xs text-zinc-500">Local-first dev idea bank & task breakdown.</p>
+          <p className="text-xs text-gray-500">Local-first dev idea bank & task breakdown.</p>
         </div>
       </section>
 
@@ -66,7 +66,7 @@ export function Settings() {
             <AlertTriangle size={18} className="text-red-400 mt-0.5 shrink-0" />
             <div>
               <p className="text-sm font-medium text-white">Delete everything?</p>
-              <p className="text-xs text-zinc-400 mt-0.5">All {projects.length} project{projects.length !== 1 ? 's' : ''} will be permanently removed.</p>
+              <p className="text-xs text-gray-400 mt-0.5">All {projects.length} project{projects.length !== 1 ? 's' : ''} will be permanently removed.</p>
             </div>
           </div>
           <div className="flex justify-end gap-2">

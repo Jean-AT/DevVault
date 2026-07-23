@@ -45,13 +45,13 @@ export function ProjectForm({ project, onSave, onClose }: ProjectFormProps) {
 
       <div>
         <div className="flex items-center justify-between mb-1.5">
-          <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider">Description</label>
-          <button type="button" onClick={() => setShowPreview(!showPreview)} className="text-[11px] text-violet-400 hover:text-violet-300 cursor-pointer">
+          <label className="text-xs font-medium text-gray-400 uppercase tracking-wider">Description</label>
+          <button type="button" onClick={() => setShowPreview(!showPreview)} className="text-[11px] text-sky-400 hover:text-sky-300 cursor-pointer transition-colors">
             {showPreview ? 'Edit' : 'Preview'}
           </button>
         </div>
         {showPreview ? (
-          <div className="w-full rounded-xl bg-zinc-800 border border-zinc-700 px-4 py-3 min-h-[120px] prose prose-invert prose-sm max-w-none">
+          <div className="w-full rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 px-4 py-3 min-h-[120px] prose prose-invert prose-sm max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{description || '*No description yet...*'}</ReactMarkdown>
           </div>
         ) : (
@@ -65,19 +65,19 @@ export function ProjectForm({ project, onSave, onClose }: ProjectFormProps) {
       </div>
 
       <div>
-        <label className="text-xs font-medium text-zinc-400 uppercase tracking-wider block mb-1.5">Tags</label>
+        <label className="text-xs font-medium text-gray-400 uppercase tracking-wider block mb-1.5">Tags</label>
         <div className="flex gap-2 mb-2">
-          <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addTag() } }} placeholder="Add a tag" className="flex-1 rounded-xl bg-zinc-900 border border-zinc-700 px-3 py-2 text-sm text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-violet-500" />
+          <input type="text" value={tagInput} onChange={(e) => setTagInput(e.target.value)} onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); addTag() } }} placeholder="Add a tag" className="flex-1 rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sky-500/50 backdrop-blur-sm transition-all" />
           <Button type="button" size="sm" onClick={addTag}><Plus size={14} /></Button>
         </div>
         <div className="flex flex-wrap gap-1.5">
           {tags.map((tag) => (
-            <Badge key={tag}>{tag}<button type="button" onClick={() => setTags(tags.filter((t) => t !== tag))} className="ml-1 hover:text-red-400 cursor-pointer"><X size={10} /></button></Badge>
+            <Badge key={tag}>{tag}<button type="button" onClick={() => setTags(tags.filter((t) => t !== tag))} className="ml-1 hover:text-red-400 cursor-pointer transition-colors"><X size={10} /></button></Badge>
           ))}
         </div>
       </div>
 
-      <div className="flex justify-end gap-2 pt-3 border-t border-zinc-800">
+      <div className="flex justify-end gap-2 pt-3 border-t border-white/5">
         <Button type="button" variant="ghost" onClick={onClose}>Cancel</Button>
         <Button type="submit">{project ? 'Update' : 'Create'} Project</Button>
       </div>

@@ -1,0 +1,106 @@
+[
+  {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "title": "E-commerce API",
+    "description": "REST API for an online store with product catalog, shopping cart, and payment integration.\n\n## Tech Stack\n- Node.js + Express\n- PostgreSQL\n- Stripe for payments\n- JWT auth",
+    "status": "in-progress",
+    "priority": "high",
+    "tags": ["backend", "api", "nodejs", "postgresql"],
+    "tasks": [
+      { "id": "t1", "title": "Set up Express server with TypeScript", "description": "Initialize project, configure TypeScript, add linting", "status": "done", "priority": "medium", "order": 0, "createdAt": "2026-07-01T10:00:00Z" },
+      { "id": "t2", "title": "Design database schema", "description": "Users, products, orders, cart items tables", "status": "done", "priority": "high", "order": 1, "createdAt": "2026-07-01T10:00:00Z" },
+      { "id": "t3", "title": "Implement auth endpoints", "description": "Register, login, refresh token with bcrypt + JWT", "status": "done", "priority": "high", "order": 2, "createdAt": "2026-07-02T10:00:00Z" },
+      { "id": "t4", "title": "Product CRUD endpoints", "description": "Create, read, update, delete products with image upload", "status": "in-progress", "priority": "medium", "order": 3, "createdAt": "2026-07-03T10:00:00Z" },
+      { "id": "t5", "title": "Shopping cart logic", "description": "Add/remove items, update quantities", "status": "todo", "priority": "high", "order": 4, "createdAt": "2026-07-04T10:00:00Z" },
+      { "id": "t6", "title": "Stripe payment integration", "description": "Checkout session, webhooks for payment status", "status": "todo", "priority": "high", "order": 5, "createdAt": "2026-07-05T10:00:00Z" },
+      { "id": "t7", "title": "Write API tests", "description": "Unit tests with Jest + integration tests", "status": "todo", "priority": "medium", "order": 6, "createdAt": "2026-07-06T10:00:00Z" }
+    ],
+    "createdAt": "2026-07-01T10:00:00Z",
+    "updatedAt": "2026-07-20T14:30:00Z"
+  },
+  {
+    "id": "b2c3d4e5-f6a7-8901-bcde-f12345678901",
+    "title": "DevVault",
+    "description": "Local-first app where developers dump project ideas and break them into implementable tasks.\n\n## Features\n- Project idea bank\n- Task breakdown per project\n- Markdown support\n- Export/Import JSON\n- Dark mode",
+    "status": "in-progress",
+    "priority": "high",
+    "tags": ["frontend", "react", "typescript", "tailwind"],
+    "tasks": [
+      { "id": "t1", "title": "Scaffold Vite + React + TS", "description": "", "status": "done", "priority": "high", "order": 0, "createdAt": "2026-07-10T10:00:00Z" },
+      { "id": "t2", "title": "Build Zustand store", "description": "Project and task CRUD with localStorage", "status": "done", "priority": "high", "order": 1, "createdAt": "2026-07-10T10:00:00Z" },
+      { "id": "t3", "title": "Dashboard with project cards", "description": "", "status": "done", "priority": "medium", "order": 2, "createdAt": "2026-07-11T10:00:00Z" },
+      { "id": "t4", "title": "Task breakdown UI", "description": "", "status": "done", "priority": "high", "order": 3, "createdAt": "2026-07-12T10:00:00Z" },
+      { "id": "t5", "title": "Deploy to Render", "description": "", "status": "in-progress", "priority": "medium", "order": 4, "createdAt": "2026-07-20T10:00:00Z" }
+    ],
+    "createdAt": "2026-07-10T10:00:00Z",
+    "updatedAt": "2026-07-22T18:00:00Z"
+  },
+  {
+    "id": "c3d4e5f6-a7b8-9012-cdef-123456789012",
+    "title": "AI Code Review Bot",
+    "description": "GitHub bot that reviews PRs using AI and suggests improvements.\n\n> Automatically detects bugs, performance issues, and style problems.",
+    "status": "backlog",
+    "priority": "medium",
+    "tags": ["ai", "github", "bot", "python"],
+    "tasks": [
+      { "id": "t1", "title": "Set up GitHub App permissions", "description": "Webhook events, PR read access", "status": "todo", "priority": "high", "order": 0, "createdAt": "2026-07-15T10:00:00Z" },
+      { "id": "t2", "title": "Build webhook listener", "description": "FastAPI server to receive PR events", "status": "todo", "priority": "high", "order": 1, "createdAt": "2026-07-15T10:00:00Z" },
+      { "id": "t3", "title": "Integrate OpenAI API", "description": "Send diff to GPT-4, parse suggestions", "status": "todo", "priority": "medium", "order": 2, "createdAt": "2026-07-15T10:00:00Z" },
+      { "id": "t4", "title": "Post review comments", "description": "Format and post suggestions on PR", "status": "todo", "priority": "medium", "order": 3, "createdAt": "2026-07-15T10:00:00Z" }
+    ],
+    "createdAt": "2026-07-15T10:00:00Z",
+    "updatedAt": "2026-07-15T10:00:00Z"
+  },
+  {
+    "id": "d4e5f6a7-b8c9-0123-defa-234567890123",
+    "title": "Weather Dashboard",
+    "description": "Real-time weather app with 7-day forecast, radar maps, and location search.\n\nUsing OpenWeatherMap API.",
+    "status": "done",
+    "priority": "low",
+    "tags": ["frontend", "react", "api", "css"],
+    "tasks": [
+      { "id": "t1", "title": "Design UI mockups", "description": "", "status": "done", "priority": "medium", "order": 0, "createdAt": "2026-06-20T10:00:00Z" },
+      { "id": "t2", "title": "Implement current weather view", "description": "", "status": "done", "priority": "high", "order": 1, "createdAt": "2026-06-21T10:00:00Z" },
+      { "id": "t3", "title": "7-day forecast cards", "description": "", "status": "done", "priority": "medium", "order": 2, "createdAt": "2026-06-23T10:00:00Z" },
+      { "id": "t4", "title": "Location search with autocomplete", "description": "", "status": "done", "priority": "medium", "order": 3, "createdAt": "2026-06-25T10:00:00Z" },
+      { "id": "t5", "title": "Responsive design", "description": "", "status": "done", "priority": "low", "order": 4, "createdAt": "2026-06-27T10:00:00Z" },
+      { "id": "t6", "title": "Deploy to Vercel", "description": "", "status": "done", "priority": "low", "order": 5, "createdAt": "2026-06-28T10:00:00Z" }
+    ],
+    "createdAt": "2026-06-20T10:00:00Z",
+    "updatedAt": "2026-06-28T15:00:00Z"
+  },
+  {
+    "id": "e5f6a7b8-c9d0-1234-efab-345678901234",
+    "title": "CLI Task Manager",
+    "description": "Terminal-based task manager written in Go.\n\n```bash\ntask add \"Fix login bug\" --priority high\ntask list --status todo\ntask done 3\n```",
+    "status": "backlog",
+    "priority": "low",
+    "tags": ["cli", "go", "terminal"],
+    "tasks": [
+      { "id": "t1", "title": "Set up Go project structure", "description": "", "status": "todo", "priority": "medium", "order": 0, "createdAt": "2026-07-18T10:00:00Z" },
+      { "id": "t2", "title": "Implement add/list/done commands", "description": "Using cobra CLI library", "status": "todo", "priority": "high", "order": 1, "createdAt": "2026-07-18T10:00:00Z" },
+      { "id": "t3", "title": "SQLite storage", "description": "", "status": "todo", "priority": "medium", "order": 2, "createdAt": "2026-07-18T10:00:00Z" }
+    ],
+    "createdAt": "2026-07-18T10:00:00Z",
+    "updatedAt": "2026-07-18T10:00:00Z"
+  },
+  {
+    "id": "f6a7b8c9-d0e1-2345-fabc-456789012345",
+    "title": "Portfolio Website",
+    "description": "Personal portfolio with blog, project showcase, and contact form.\n\nBuilt with Next.js + MDX for blog posts.",
+    "status": "done",
+    "priority": "medium",
+    "tags": ["frontend", "nextjs", "portfolio", "blog"],
+    "tasks": [
+      { "id": "t1", "title": "Design in Figma", "description": "", "status": "done", "priority": "high", "order": 0, "createdAt": "2026-05-01T10:00:00Z" },
+      { "id": "t2", "title": "Hero section + navigation", "description": "", "status": "done", "priority": "high", "order": 1, "createdAt": "2026-05-05T10:00:00Z" },
+      { "id": "t3", "title": "Projects showcase grid", "description": "", "status": "done", "priority": "medium", "order": 2, "createdAt": "2026-05-10T10:00:00Z" },
+      { "id": "t4", "title": "Blog with MDX", "description": "", "status": "done", "priority": "medium", "order": 3, "createdAt": "2026-05-15T10:00:00Z" },
+      { "id": "t5", "title": "Contact form with Resend", "description": "", "status": "done", "priority": "low", "order": 4, "createdAt": "2026-05-20T10:00:00Z" },
+      { "id": "t6", "title": "SEO + meta tags", "description": "", "status": "done", "priority": "low", "order": 5, "createdAt": "2026-05-22T10:00:00Z" },
+      { "id": "t7", "title": "Deploy to Vercel", "description": "", "status": "done", "priority": "medium", "order": 6, "createdAt": "2026-05-25T10:00:00Z" }
+    ],
+    "createdAt": "2026-05-01T10:00:00Z",
+    "updatedAt": "2026-05-25T12:00:00Z"
+  }
+]

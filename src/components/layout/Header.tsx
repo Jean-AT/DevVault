@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { Menu, X, Vault, Home, Settings } from 'lucide-react'
 
@@ -6,73 +6,88 @@ export function Header() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const location = useLocation()
 
+  useEffect(() => {
+    setMobileOpen(false)
+  }, [location.pathname])
+
   const links = [
     { to: '/', label: 'Projects', icon: Home },
     { to: '/settings', label: 'Settings', icon: Settings },
   ]
 
   return (
-    <header className="sticky top-0 z-40 bg-zinc-900/80 backdrop-blur-md border-b border-zinc-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-14">
-          <Link to="/" className="flex items-center gap-2.5 text-violet-400 font-bold text-lg">
-            <div className="w-8 h-8 rounded-xl bg-violet-500/20 flex items-center justify-center">
-              <Vault size={18} />
-            </div>
-            DevVault
-          </Link>
+    <>
+      <header className="sticky top-0 z-40 bg-black/40 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14">
+            <Link to="/" className="flex items-center gap-2.5 font-bold text-lg text-white">
+              <div className="w-8 h-8 rounded-xl bg-white/10 backdrop-blur-sm border border-white/10 flex items-center justify-center">
+                <Vault size={16} className="text-gray-300" />
+              </div>
+              DevVault
+            </Link>
 
-          <nav className="hidden sm:flex items-center gap-1">
-            {links.map((link) => {
-              const Icon = link.icon
-              const active = location.pathname === link.to
-              return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all ${
-                    active ? 'bg-violet-500/15 text-violet-400' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
-                  }`}
-                >
-                  <Icon size={15} />
-                  {link.label}
-                </Link>
-              )
-            })}
-          </nav>
+            <nav className="hidden sm:flex items-center gap-1">
+              {links.map((link) => {
+                const Icon = link.icon
+                const active = location.pathname === link.to
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-sm font-medium transition-all ${
+                      active
+                        ? 'bg-white/10 text-white backdrop-blur-sm border border-white/10'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <Icon size={15} />
+                    {link.label}
+                  </Link>
+                )
+              })}
+            </nav>
 
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="sm:hidden p-2 rounded-xl hover:bg-zinc-800 text-zinc-400 hover:text-white cursor-pointer"
-          >
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
+            <button
+              onClick={() => setMobileOpen(!mobileOpen)}
+              className="sm:hidden p-2 rounded-xl hover:bg-white/5 text-gray-400 hover:text-white transition-all cursor-pointer"
+            >
+              {mobileOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+          </div>
         </div>
-      </div>
+      </header>
 
       {mobileOpen && (
-        <div className="sm:hidden border-t border-zinc-800 bg-zinc-900">
-          <nav className="px-4 py-2 flex flex-col gap-1">
-            {links.map((link) => {
-              const Icon = link.icon
-              const active = location.pathname === link.to
-              return (
-                <Link
-                  key={link.to}
-                  to={link.to}
-                  onClick={() => setMobileOpen(false)}
-                  className={`flex items-center gap-2 px-3 py-2.5 rounded-xl text-sm font-medium ${
-                    active ? 'bg-violet-500/15 text-violet-400' : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
-                  }`}
-                >
-                  <Icon size={16} />
-                  {link.label}
-                </Link>
-              )
-            })}
-          </nav>
+        <div className="fixed inset-0 z-30 sm:hidden" onClick={() => setMobileOpen(false)}>
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div
+            className="absolute top-14 left-0 right-0 bg-gray-900/95 backdrop-blur-xl border-b border-white/10 shadow-xl shadow-black/50"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <nav className="px-4 py-3 space-y-1">
+              {links.map((link) => {
+                const Icon = link.icon
+                const active = location.pathname === link.to
+                return (
+                  <Link
+                    key={link.to}
+                    to={link.to}
+                    className={`flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition-all ${
+                      active
+                        ? 'bg-white/10 text-white'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5'
+                    }`}
+                  >
+                    <Icon size={18} />
+                    {link.label}
+                  </Link>
+                )
+              })}
+            </nav>
+          </div>
         </div>
       )}
-    </header>
+    </>
   )
 }

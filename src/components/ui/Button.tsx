@@ -9,10 +9,10 @@ export function Button({ variant = 'primary', size = 'md', className = '', child
   const base = 'inline-flex items-center justify-center gap-2 rounded-xl font-medium transition-all duration-200 cursor-pointer disabled:opacity-50'
 
   const variants = {
-    primary: 'bg-violet-600 text-white hover:bg-violet-500',
-    danger: 'bg-red-600 text-white hover:bg-red-500',
-    ghost: 'text-zinc-400 hover:text-white hover:bg-zinc-800',
-    outline: 'border border-zinc-700 text-zinc-300 hover:bg-zinc-800',
+    primary: 'bg-white/10 text-white hover:bg-white/15 border border-white/10',
+    danger: 'bg-red-500/15 text-red-400 hover:bg-red-500/25 border border-red-500/20',
+    ghost: 'text-gray-400 hover:text-white hover:bg-white/5',
+    outline: 'border border-white/10 text-gray-300 hover:bg-white/5',
   }
 
   const sizes = {

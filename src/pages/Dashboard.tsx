@@ -19,7 +19,7 @@ export function Dashboard() {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-white tracking-tight">Projects</h1>
-          <p className="text-xs text-zinc-500 mt-0.5">{filtered.length} project{filtered.length !== 1 ? 's' : ''}</p>
+          <p className="text-xs text-gray-500 mt-0.5">{filtered.length} project{filtered.length !== 1 ? 's' : ''}</p>
         </div>
         <Button onClick={() => setShowForm(true)}><Plus size={15} />New Project</Button>
       </div>
@@ -32,11 +32,11 @@ export function Dashboard() {
         </div>
       ) : (
         <div className="flex flex-col items-center justify-center py-24">
-          <div className="w-16 h-16 rounded-2xl bg-zinc-900 border border-zinc-800 flex items-center justify-center mb-5">
-            <FolderOpen size={28} className="text-zinc-600" />
+          <div className="w-16 h-16 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/5 flex items-center justify-center mb-5">
+            <FolderOpen size={28} className="text-gray-600" />
           </div>
           <h3 className="text-lg font-medium text-white mb-1.5">No projects yet</h3>
-          <p className="text-sm text-zinc-500 mb-5 text-center max-w-sm">Add your first project idea. Break it into tasks.</p>
+          <p className="text-sm text-gray-500 mb-5 text-center max-w-sm">Add your first project idea. Break it into tasks.</p>
           <Button onClick={() => setShowForm(true)}><Plus size={15} />Create your first project</Button>
         </div>
       )}
