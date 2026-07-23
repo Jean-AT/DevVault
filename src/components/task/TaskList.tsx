@@ -3,6 +3,7 @@ import { Plus } from 'lucide-react'
 import type { Task, Priority, TaskStatus } from '../../types'
 import { TaskItem } from './TaskItem'
 import { Button } from '../ui/Button'
+import { CustomSelect } from '../ui/CustomSelect'
 
 interface TaskListProps {
   tasks: Task[]
@@ -29,11 +30,15 @@ export function TaskList({ tasks, onAdd, onUpdate, onDelete, onReorder }: TaskLi
   const handleAdd = () => {
     if (!newTitle.trim()) return
     onAdd({ title: newTitle.trim(), description: '', status: 'todo', priority: newPriority })
-    setNewTitle(''); setNewPriority('medium'); setAdding(false)
+    setNewTitle('')
+    setNewPriority('medium')
+    setAdding(false)
   }
 
   const move = (arr: string[], from: number, to: number) => {
-    const a = [...arr]; [a[from], a[to]] = [a[to], a[from]]; return a
+    const a = [...arr]
+    ;[a[from], a[to]] = [a[to], a[from]]
+    return a
   }
 
   return (
@@ -57,11 +62,12 @@ export function TaskList({ tasks, onAdd, onUpdate, onDelete, onReorder }: TaskLi
         <div className="mb-3 p-3 rounded-xl bg-white/5 backdrop-blur-sm border border-white/10 space-y-2">
           <input type="text" value={newTitle} onChange={(e) => setNewTitle(e.target.value)} placeholder="Task title" className="w-full rounded-xl bg-white/5 border border-white/10 px-3 py-2 text-sm text-gray-100 placeholder-gray-500 focus:outline-none focus:border-sky-500/50" autoFocus onKeyDown={(e) => e.key === 'Enter' && handleAdd()} />
           <div className="flex items-center gap-2">
-            <select value={newPriority} onChange={(e) => setNewPriority(e.target.value as Priority)} className="rounded-xl bg-white/5 border border-white/10 px-2 py-1.5 text-xs text-gray-300 cursor-pointer">
-              <option value="low" className="bg-gray-900">Low</option>
-              <option value="medium" className="bg-gray-900">Medium</option>
-              <option value="high" className="bg-gray-900">High</option>
-            </select>
+            <CustomSelect
+              value={newPriority}
+              onChange={(v) => setNewPriority(v as Priority)}
+              options={[{ value: 'low', label: 'Low' }, { value: 'medium', label: 'Medium' }, { value: 'high', label: 'High' }]}
+              className="w-28"
+            />
             <Button size="sm" onClick={handleAdd}>Add</Button>
             <Button size="sm" variant="ghost" onClick={() => { setAdding(false); setNewTitle('') }}>Cancel</Button>
           </div>

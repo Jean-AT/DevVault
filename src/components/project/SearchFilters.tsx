@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
 import { useStore, getAllTags } from '../../store/projectStore'
 import { Search, X } from 'lucide-react'
+import { CustomSelect } from '../ui/CustomSelect'
 import type { ProjectStatus, Priority } from '../../types'
-
-const selectClass = 'rounded-xl bg-white/5 border border-white/10 px-3 py-2.5 text-xs text-gray-300 focus:outline-none focus:border-sky-500/50 cursor-pointer backdrop-blur-sm transition-all'
 
 export function SearchFilters() {
   const filters = useStore((s) => s.filters)
@@ -30,23 +29,38 @@ export function SearchFilters() {
       </div>
 
       <div className="flex items-center gap-2">
-        <select value={filters.status} onChange={(e) => setFilters({ status: e.target.value as ProjectStatus | 'all' })} className={selectClass}>
-          <option value="all" className="bg-gray-900">All Status</option>
-          <option value="backlog" className="bg-gray-900">Backlog</option>
-          <option value="in-progress" className="bg-gray-900">In Progress</option>
-          <option value="done" className="bg-gray-900">Done</option>
-        </select>
-        <select value={filters.priority} onChange={(e) => setFilters({ priority: e.target.value as Priority | 'all' })} className={selectClass}>
-          <option value="all" className="bg-gray-900">All Priority</option>
-          <option value="low" className="bg-gray-900">Low</option>
-          <option value="medium" className="bg-gray-900">Medium</option>
-          <option value="high" className="bg-gray-900">High</option>
-        </select>
+        <CustomSelect
+          value={filters.status}
+          onChange={(v) => setFilters({ status: v as ProjectStatus | 'all' })}
+          options={[
+            { value: 'all', label: 'All Status' },
+            { value: 'backlog', label: 'Backlog' },
+            { value: 'in-progress', label: 'In Progress' },
+            { value: 'done', label: 'Done' },
+          ]}
+          className="w-32"
+        />
+        <CustomSelect
+          value={filters.priority}
+          onChange={(v) => setFilters({ priority: v as Priority | 'all' })}
+          options={[
+            { value: 'all', label: 'All Priority' },
+            { value: 'low', label: 'Low' },
+            { value: 'medium', label: 'Medium' },
+            { value: 'high', label: 'High' },
+          ]}
+          className="w-32"
+        />
         {allTags.length > 0 && (
-          <select value={filters.tags[0] || 'all'} onChange={(e) => setFilters({ tags: e.target.value === 'all' ? [] : [e.target.value] })} className={selectClass}>
-            <option value="all" className="bg-gray-900">All Tags</option>
-            {allTags.map((tag) => <option key={tag} value={tag} className="bg-gray-900">{tag}</option>)}
-          </select>
+          <CustomSelect
+            value={filters.tags[0] || 'all'}
+            onChange={(v) => setFilters({ tags: v === 'all' ? [] : [v] })}
+            options={[
+              { value: 'all', label: 'All Tags' },
+              ...allTags.map((tag) => ({ value: tag, label: tag })),
+            ]}
+            className="w-32"
+          />
         )}
       </div>
     </div>
