@@ -32,8 +32,8 @@ export function ProjectDetail() {
 
   if (!project) return (
     <div className="text-center py-24">
-      <p className="text-zinc-500">Project not found.</p>
-      <Link to="/" className="text-violet-400 text-sm mt-2 inline-block">Back to projects</Link>
+      <p className="text-gray-500">Project not found.</p>
+      <Link to="/" className="text-sky-400 text-sm mt-2 inline-block hover:text-sky-300 transition-colors">Back to projects</Link>
     </div>
   )
 
@@ -42,7 +42,7 @@ export function ProjectDetail() {
 
   return (
     <div className="space-y-6">
-      <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-violet-400 transition-colors">
+      <Link to="/" className="inline-flex items-center gap-1.5 text-xs text-gray-500 hover:text-sky-400 transition-colors">
         <ArrowLeft size={14} />Back to projects
       </Link>
 
@@ -53,7 +53,7 @@ export function ProjectDetail() {
             <Badge color={s.color}><SIcon size={10} className="mr-1" />{s.label}</Badge>
             <Badge color={priorityColors[project.priority]}>{project.priority}</Badge>
           </div>
-          <div className="flex items-center gap-1 text-[11px] text-zinc-500">
+          <div className="flex items-center gap-1 text-[11px] text-gray-500">
             <Calendar size={11} />
             Created {new Date(project.createdAt).toLocaleDateString()}
             {project.updatedAt !== project.createdAt && <span> · Updated {new Date(project.updatedAt).toLocaleDateString()}</span>}
@@ -68,14 +68,14 @@ export function ProjectDetail() {
       {project.tags.length > 0 && <div className="flex flex-wrap gap-1.5">{project.tags.map((t) => <Badge key={t}>{t}</Badge>)}</div>}
 
       {project.description && (
-        <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
+        <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/5">
           <div className="prose prose-invert prose-sm max-w-none">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{project.description}</ReactMarkdown>
           </div>
         </div>
       )}
 
-      <div className="p-5 rounded-2xl bg-zinc-900 border border-zinc-800">
+      <div className="p-5 rounded-2xl bg-white/[0.03] backdrop-blur-sm border border-white/5">
         <TaskList
           tasks={project.tasks}
           onAdd={(d) => addTask(project.id, d)}
@@ -91,7 +91,7 @@ export function ProjectDetail() {
 
       <Modal isOpen={confirmDelete} onClose={() => setConfirmDelete(false)} title="Delete Project">
         <div className="space-y-4">
-          <p className="text-sm text-zinc-400">Are you sure you want to delete <strong className="text-white">{project.title}</strong>?</p>
+          <p className="text-sm text-gray-400">Are you sure you want to delete <strong className="text-white">{project.title}</strong>?</p>
           <div className="flex justify-end gap-2">
             <Button variant="ghost" onClick={() => setConfirmDelete(false)}>Cancel</Button>
             <Button variant="danger" onClick={() => { deleteProject(project.id); navigate('/') }}>Delete</Button>
